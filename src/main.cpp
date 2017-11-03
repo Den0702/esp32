@@ -1,45 +1,64 @@
 #include "Arduino.h"
-#include <OneWire.h>
-#include <DallasTemperature.h>
 #include "Embedis.h"
-Embedis embedis(Serial);
+#include "interface/eeprom.h"
 
-#include "commands.h"
+#include "setting.h"
+
+#include "devices/thermometer.h"
+
+#include "interface/wifi.h"
+#include "interface/mdns.h"
+#include "interface/telnet.h"
+#include "interface/mqtt1.h"
+Embedis embedis(Serial);
+#include "interface/ntp.h"
 #include "log.h"
 #include "TemperatureRegulator.h"
-const uint8_t ONE_WIRE_BUS = 3;
-const uint64_t SERIAL_BADURATE = 115200;
-const uint8_t COOLING_VALVE_PIN_NUMBER = 1;
-const bool COOLING_VALVE_DEFAULT_STATE = false;
-const uint8_t HEATING_VALVE_PIN_NUMBER = 2;
-const bool HEATING_VALVE_DEFAULT_STATE = false;
-OneWire oneWire(ONE_WIRE_BUS);
-DallasTemperature thermometers(&oneWire);
-DeviceAddress tankThermometer,
- incommingMediumThermometer,
- outcommingMediumThermometer;
+#include "command.h"
+const uint8_t COOLING_RELAY_PIN_NUMBER = 1;
+const bool COOLING_RELAY_DEFAULT_STATE = false;
+const uint8_t HEATING_RELAY_PIN_NUMBER = 2;
+const bool HEATING_RELAY_DEFAULT_STATE = false;
+
 TemepratureRegulator tankTemepratureRegulator(
-  HEATING_VALVE_PIN_NUMBER,
-  HEATING_VALVE_DEFAULT_STATE,
-  COOLING_VALVE_PIN_NUMBER,
-  COOLING_VALVE_DEFAULT_STATE);
-void setup() {
-  setup_commands();
-  Serial.begin(SERIAL_BADURATE);
-  thermometers.begin();
-  if(!thermometers.getAddress(tankThermometer, 0)){
-    LOG("Unable to find tank thermometer");
+  HEATING_RELAY_PIN_NUMBER,
+  HEATING_RELAY_DEFAULT_STATE,
+  COOLING_RELAY_PIN_NUMBER,
+  COOLING_RELAY_DEFAULT_STATE);
+
+  void setup() {
+    randomSeed(analogRead(0));
+    delay(random(100, 5000));
+    Serial.begin(SETTING::SERIAL_BADURATE());
+    setup_eeprom();
+    setup_command();
+
+    setup_thermometer();
+
+
   }
-  if(!thermometers.getAddress(incommingMediumThermometer, 1)){
-    LOG("Unable to find incomming medium thermometer");
+
+
+
+  
+  void loop(){
+    setup_wifi();
+    setup_ntp();
+
+    setup_mdns();
+    setup_telnet();
+    // setup_mqtt();
+    MQTT::setup();
+
+
+    loop_telnet();
+    // loop_thermometer();
+    loop_ntp();
+    // loop_mqtt();
+    MQTT::loop();
+    //
+    // tankTemepratureRegulator.setSetpoint(SETTING::TANK::DEMANDED_TEMPERATURE());
+    // tankTemepratureRegulator.update(getTankTemperature());
+    // tankTemepratureRegulator.loop();
+    embedis.process();
   }
-  if(!thermometers.getAddress(outcommingMediumThermometer, 2)){
-    LOG("Unable to find outcomming medium thermometer");
-  }
-}
-void loop(){
-  tankTemepratureRegulator.setTemperatureToMaintain(getRequestedTankThermometerTemperature());
-  tankTemepratureRegulator.updateTemperature(thermometers.getTempC(tankThermometer));
-  tankTemepratureRegulator.loop();
-  embedis.process();
-}

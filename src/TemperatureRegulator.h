@@ -5,30 +5,28 @@
 #include <PID_v1.h>
 
 class TemepratureRegulator{
-public:
-
-  Relay* heatingValve;
-  Relay* coolingValve;
+private:
+  uint8_t heatingRelayPinNumber;
+  bool heatingRelayDefaultState;
+  uint8_t coolingRelayPinNumber;
+  bool coolingRelayDefaultState;
+  Relay* heatingRelay;
+  Relay* coolingRelay;
   PID* pid;
-
-  const uint64_t windowSize = 5000;
+  uint64_t windowSize = 5000;
   unsigned long windowStartTime;
-
   double setpoint,
   input,
-  output, currentTemperature;
+  output,
+  currentTemperature;
 
-  uint8_t _heatingValvePinNumber;
-  bool _heatingValveDefaultState;
-  uint8_t _coolingValvePinNumber;
-  bool _coolingValveDefaultState;
-
-  TemepratureRegulator(uint8_t heatingValvePinNumber,
-    bool heatingValveDefaultState,
-    uint8_t coolingValvePinNumber,
-    bool coolingValveDefaultState);
-  void updateTemperature(double temeprature);
-  void setTemperatureToMaintain(double temeprature);
+public:
+  TemepratureRegulator(uint8_t heatingRelayPinNumber,
+    bool heatingRelayDefaultState,
+    uint8_t coolingRelayPinNumber,
+    bool coolingRelayDefaultState);
+  void update(double temeprature);
+  void setSetpoint(double temeprature);
   void loop();
 };
 #endif

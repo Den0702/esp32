@@ -1,4 +1,5 @@
 #include "TemperatureRegulator.h"
+#include "log.h"
 /********************************************************
  * PID RelayOutput Example
  * Same as basic example, except that this time, the output
@@ -14,27 +15,27 @@
  * output into "Relay On Time" with the remainder of the
  * window being "Relay Off Time"
  ********************************************************/
-TemepratureRegulator::TemepratureRegulator(uint8_t heatingValvePinNumber,
-  bool heatingValveDefaultState,
-  uint8_t coolingValvePinNumber,
-  bool coolingValveDefaultState):
-  _heatingValvePinNumber(heatingValvePinNumber),
-  _heatingValveDefaultState(heatingValveDefaultState),
-  _coolingValvePinNumber(coolingValvePinNumber),
-  _coolingValveDefaultState(coolingValveDefaultState) {
-  heatingValve = new Relay(heatingValvePinNumber,
-     heatingValveDefaultState);
-  coolingValve = new Relay(coolingValvePinNumber,
-     coolingValveDefaultState);
+TemepratureRegulator::TemepratureRegulator(uint8_t heatingRelayPinNumber,
+  bool heatingRelayDefaultState,
+  uint8_t coolingRelayPinNumber,
+  bool coolingRelayDefaultState):
+  heatingRelayPinNumber(heatingRelayPinNumber),
+  heatingRelayDefaultState(heatingRelayDefaultState),
+  coolingRelayPinNumber(coolingRelayPinNumber),
+  coolingRelayDefaultState(coolingRelayDefaultState) {
+  heatingRelay = new Relay(heatingRelayPinNumber,
+     heatingRelayDefaultState);
+  coolingRelay = new Relay(coolingRelayPinNumber,
+     coolingRelayDefaultState);
   pid = new PID(&input, &output, &setpoint, 2, 5, 1, DIRECT);
   pid->SetOutputLimits(0, windowSize);
   pid->SetMode(AUTOMATIC);
   windowStartTime = millis();
 }
-void TemepratureRegulator::updateTemperature(double temperature){
+void TemepratureRegulator::update(double temperature){
   currentTemperature = temperature;
 }
-void TemepratureRegulator::setTemperatureToMaintain(double temperature){
+void TemepratureRegulator::setSetpoint(double temperature){
   setpoint = temperature;
 }
 void TemepratureRegulator::loop(){
@@ -44,12 +45,12 @@ void TemepratureRegulator::loop(){
   }
   if(output < millis() - windowStartTime) {
     if(setpoint < currentTemperature){
-      coolingValve->turnOn();
-      heatingValve->turnOff();
+      coolingRelay->turnOn();
+      heatingRelay->turnOff();
     }
     if(setpoint > currentTemperature){
-      coolingValve->turnOff();
-      heatingValve->turnOn();
+      coolingRelay->turnOff();
+      heatingRelay->turnOn();
     }
   } else {
   }
