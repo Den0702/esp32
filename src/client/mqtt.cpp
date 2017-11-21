@@ -18,14 +18,14 @@ namespace CLIENT{
       LOGGER::DEBUG("Recived message from topic: " + SETTING::MQTT::TOPIC() + " = " + payload);
     }
     void publish(String topic, String value){
-      if(client.publish(topic, value, NOTRETAIN, QoS2)){
+      if(client.publish(topic, value, NOT_RETAIN, QoS2)){
         LOGGER::DEBUG("Published to: "+ topic + " value: "+ value);
       }else{
         LOGGER::ERROR("Did not publish to: "+ topic + " value: "+ value);
       }
     }
     void publish(String topic, double value){
-      if(client.publish(topic, String( value), NOTRETAIN, QoS2)){
+      if(client.publish(topic, String( value), NOT_RETAIN, QoS2)){
         LOGGER::DEBUG("Published to: "+ topic + " value: "+ value);
       }else{
         LOGGER::ERROR("Did not publish to: "+ topic + " value: "+ value);
@@ -63,6 +63,9 @@ namespace CLIENT{
           SETTING::MQTT::LOGIN().c_str(),
           SETTING::MQTT::PASSWORD().c_str())) {
             LOGGER::DEBUG(F("Connected to mqtt"));
+            client.setWill(String(SETTING::MQTT::TOPIC()+"/status").c_str(), "0", RETAIN, QoS2);
+            client.publish(SETTING::MQTT::TOPIC()+"/status", "1", RETAIN, QoS2);
+
             if(client.subscribe(SETTING::MQTT::TOPIC())){
               LOGGER::DEBUG("Subscribed to topic: " + SETTING::MQTT::TOPIC());
             }else{
@@ -72,17 +75,15 @@ namespace CLIENT{
             LOGGER::ERROR("Did not conect to mqtt server");
           }
         }
-        root["model"] = SETTING::DEVICE::MODEL;
-        // root["device"] = SETTING::DEVICE::ID();
-        root["firmware_version"] = SETTING::DEVICE::FIRMWARE_VERSION;
         root.set<unsigned long>("timestamp", CLIENT::NTP::getEpochTime());
-        root.set<double>("in", DEVICE::THERMOMETER::getIncommingMediumTemperature());
-        root.set<double>("out", DEVICE::THERMOMETER::getOutcommingMediumTemperature());
-        root.set<double>("inside", DEVICE::THERMOMETER::getTankTemperature());
+        JsonArray& analogValues = root.createNestedArray("sensors");
+        analogValues.add(DEVICE::THERMOMETER::getIncommingMediumTemperature());
+        analogValues.add(DEVICE::THERMOMETER::getOutcommingMediumTemperature());
+        analogValues.add(DEVICE::THERMOMETER::getTankTemperature());
 
         String jsonToPublish;
         root.printTo(jsonToPublish);
-        publish(SETTING::MQTT::TOPIC(), jsonToPublish);
+        publish(SETTING::MQTT::TOPIC()+"/sensors", jsonToPublish);
         lastMillis = millis();
       }
     }

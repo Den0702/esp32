@@ -13,7 +13,7 @@ Embedis embedis(Serial);
 #include "TemperatureRegulator.h"
 #include "command.h"
   void setup() {
-    Serial.begin(SETTING::SERIAL_BADURATE());
+    Serial.begin(SETTING::SERIAL_BADURATE);
     DEVICE::EePROM::setup();
     setup_command();
     DEVICE::WIFI::setup();

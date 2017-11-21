@@ -12,11 +12,6 @@ namespace SETTING{
     }
     return str;
   }
-  uint SERIAL_BADURATE(){
-    return 112500;
-  }
-
-
   namespace DEVICE{
     String ID(){
       delay(2);

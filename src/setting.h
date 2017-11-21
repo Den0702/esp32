@@ -4,7 +4,7 @@
 #include "Arduino.h"
 namespace SETTING{
 
-  uint SERIAL_BADURATE();
+  const uint SERIAL_BADURATE = 112500;
   namespace LOG{
     uint8_t LEVEL();
   }

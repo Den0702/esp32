@@ -3,7 +3,7 @@
 #include "Arduino.h"
 namespace CLIENT{
   namespace MQTT{
-    const uint8_t NOTRETAIN = false;
+    const uint8_t NOT_RETAIN = false;
     const uint8_t RETAIN = true;
     const uint8_t QoS2 = 2;
     const uint8_t QoS1 = 1;
