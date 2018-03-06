@@ -5,7 +5,6 @@
 #include "device/wifi.h"
 #include "server/mdns.h"
 #include "server/telnet.h"
-#include "client/mqtt.h"
 Embedis embedis(Serial);
 #include "client/ntp.h"
 #include "log.h"
@@ -19,7 +18,6 @@ Embedis embedis(Serial);
   }
   void loop(){
     CLIENT::NTP::loop();
-    CLIENT::MQTT::loop();
     SERVER::mDNS::loop();
     SERVER::TELNET::loop();
     embedis.process();
