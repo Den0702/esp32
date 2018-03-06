@@ -10,7 +10,7 @@
 Embedis embedis(Serial);
 #include "client/ntp.h"
 #include "log.h"
-#include "TemperatureRegulator.h"
+// #include "TemperatureRegulator.h"
 #include "command.h"
   void setup() {
     Serial.begin(SETTING::SERIAL_BADURATE);
@@ -19,11 +19,11 @@ Embedis embedis(Serial);
     DEVICE::WIFI::setup();
     CLIENT::NTP::setup();
   }
-  TemepratureRegulator tankTemepratureRegulator(
-    SETTING::DEVICE::HEATING_RELAY_PIN_NUMBER,
-    SETTING::DEVICE::HEATING_RELAY_DEFAULT_STATE,
-    SETTING::DEVICE::COOLING_RELAY_PIN_NUMBER,
-    SETTING::DEVICE::COOLING_RELAY_DEFAULT_STATE);
+  // TemepratureRegulator tankTemepratureRegulator(
+  //   SETTING::DEVICE::HEATING_RELAY_PIN_NUMBER,
+  //   SETTING::DEVICE::HEATING_RELAY_DEFAULT_STATE,
+  //   SETTING::DEVICE::COOLING_RELAY_PIN_NUMBER,
+  //   SETTING::DEVICE::COOLING_RELAY_DEFAULT_STATE);
   void loop(){
     // DEVICE::THERMOMETER::loop();
     CLIENT::NTP::loop();
