@@ -64,23 +64,4 @@ namespace SETTING{
       return getSettingValue(EMBEDIS::TELNET_PASSWORD, "iothub");
     }
   }
-  namespace MDNS{
-    String HOSTNAME(){
-      return DEVICE::ID();
-    }
-  }
-  namespace MQTT{
-    String TOPIC(){
-      return DEVICE::ID();
-    }
-    String CLIENT(){
-      return DEVICE::ID();
-    }
-    String LOGIN(){
-      return DEVICE::ID();
-    }
-    String PASSWORD(){
-      return DEVICE::ID();
-    }
-  }
 }

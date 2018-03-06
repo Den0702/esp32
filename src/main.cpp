@@ -3,7 +3,6 @@
 #include "device/eeprom.h"
 #include "setting.h"
 #include "device/wifi.h"
-#include "server/mdns.h"
 #include "server/telnet.h"
 Embedis embedis(Serial);
 #include "client/ntp.h"
@@ -18,7 +17,6 @@ Embedis embedis(Serial);
   }
   void loop(){
     CLIENT::NTP::loop();
-    SERVER::mDNS::loop();
     SERVER::TELNET::loop();
     embedis.process();
   }
