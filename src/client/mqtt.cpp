@@ -7,14 +7,13 @@
 #include "../setting.h"
 #include <Embedis.h>
 #include "ntp.h"
-#include "../device/thermometer.h"
 namespace CLIENT{
   namespace MQTT{
     WiFiClient socket;
     MQTTClient client;
     bool SETUP = false;
     void messageReceived(String &topic, String &payload) {
-      Embedis::set(SETTING::EMBEDIS::DEMANDED_TANK_TEMPERATURE, payload);
+      // Embedis::set(SETTING::EMBEDIS::DEMANDED_TANK_TEMPERATURE, payload);
       LOGGER::DEBUG("Recived message from topic: " + SETTING::MQTT::TOPIC() + " = " + payload);
     }
     void publish(String topic, String value){
@@ -76,10 +75,10 @@ namespace CLIENT{
           }
         }
         root.set<unsigned long>("timestamp", CLIENT::NTP::getEpochTime());
-        JsonArray& analogValues = root.createNestedArray("sensors");
-        analogValues.add(DEVICE::THERMOMETER::getIncommingMediumTemperature());
-        analogValues.add(DEVICE::THERMOMETER::getOutcommingMediumTemperature());
-        analogValues.add(DEVICE::THERMOMETER::getTankTemperature());
+        // JsonArray& analogValues = root.createNestedArray("sensors");
+        // analogValues.add(DEVICE::THERMOMETER::getIncommingMediumTemperature());
+        // analogValues.add(DEVICE::THERMOMETER::getOutcommingMediumTemperature());
+        // analogValues.add(DEVICE::THERMOMETER::getTankTemperature());
 
         String jsonToPublish;
         root.printTo(jsonToPublish);

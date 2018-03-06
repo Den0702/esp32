@@ -83,17 +83,4 @@ namespace SETTING{
       return DEVICE::ID();
     }
   }
-  namespace TANK{
-    /**
-    * @TODO ADD CONST DEFAULT VALUE
-    */
-    float DEMANDED_TEMPERATURE(){
-
-      String str;
-      if(!Embedis::get(EMBEDIS::DEMANDED_TANK_TEMPERATURE, str)) {
-        return DEFAULT_DEMANDED_TEMPERATURE;
-      }
-      return str.toFloat();
-    }
-  }
 }

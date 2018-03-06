@@ -15,16 +15,11 @@ namespace SETTING{
     const String WIFI_STA_PASSWORD = F("WIFI_STA_PASSWORD");
     const String TELNET_PASSWORD = F("TELNET_PASSWORD");
     const String LOG_LEVEL = F("LOG_LEVEL");
-    const String DEMANDED_TANK_TEMPERATURE = F("DEMANDED_TANK_TEMPERATURE");
     const String NTP_TIMEZONE = F("NTP_TIMEZONE");
   }
   namespace DEVICE{
     const uint MODEL = 0;
     const uint FIRMWARE_VERSION = 0;
-    const uint8_t COOLING_RELAY_PIN_NUMBER = 1;
-    const bool COOLING_RELAY_DEFAULT_STATE = false;
-    const uint8_t HEATING_RELAY_PIN_NUMBER = 2;
-    const bool HEATING_RELAY_DEFAULT_STATE = false;
     String ID();
   }
   namespace WIFI {
@@ -48,7 +43,7 @@ namespace SETTING{
   namespace MQTT{
     String TOPIC();
     const uint PUBLISH_INTERVAL = 10000;
-    const String HOST = F("iteam.uek.krakow.pl");
+    const String HOST = F("iot.dev.uek.krakow.pl");
     const uint16_t PORT = 1883;
     String LOGIN();
     String PASSWORD();
@@ -58,10 +53,6 @@ namespace SETTING{
     const bool DEFAULT_TIMEZONE =0;
     const uint UPDATE_INTERVAL = 60000;
 
-  }
-  namespace TANK{
-    const float DEFAULT_DEMANDED_TEMPERATURE = 8;
-    float DEMANDED_TEMPERATURE();
   }
 }
 #endif
