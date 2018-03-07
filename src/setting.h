@@ -40,15 +40,6 @@ namespace SETTING{
   namespace MDNS{
     String HOSTNAME();
   }
-  namespace MQTT{
-    String TOPIC();
-    const uint PUBLISH_INTERVAL = 10000;
-    const String HOST = F("iot.dev.uek.krakow.pl");
-    const uint16_t PORT = 1883;
-    String LOGIN();
-    String PASSWORD();
-    String CLIENT();
-  }
   namespace NTP{
     const bool DEFAULT_TIMEZONE =0;
     const uint UPDATE_INTERVAL = 60000;

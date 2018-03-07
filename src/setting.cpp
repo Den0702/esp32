@@ -69,18 +69,4 @@ namespace SETTING{
       return DEVICE::ID();
     }
   }
-  namespace MQTT{
-    String TOPIC(){
-      return DEVICE::ID();
-    }
-    String CLIENT(){
-      return DEVICE::ID();
-    }
-    String LOGIN(){
-      return DEVICE::ID();
-    }
-    String PASSWORD(){
-      return DEVICE::ID();
-    }
-  }
 }
