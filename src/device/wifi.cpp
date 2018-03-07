@@ -44,16 +44,18 @@ namespace DEVICE{
       }
     }
     bool SETUP = false;
+    const char *ssid = "ESP32ap";
+const char *password = "12345678";
     void setup(){
       if(SETUP){
         return;
       }
       WiFi.mode(WIFI_MODE_APSTA);
       WiFi.onEvent(event);
-      WiFi.softAP(SETTING::WIFI::AP::SSID().c_str(), SETTING::WIFI::AP::PASSWORD().c_str());
-      WiFi.softAPsetHostname(SETTING::WIFI::AP::HOSTNAME().c_str());
-      WiFi.setHostname(SETTING::WIFI::STA::HOSTNAME().c_str());
+
       WiFi.begin(SETTING::WIFI::STA::SSID().c_str(), SETTING::WIFI::STA::PASSWORD().c_str());
+      WiFi.softAP(ssid, password);
+
       WiFi.setAutoConnect(true);
       WiFi.setAutoReconnect(true);
 

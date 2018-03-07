@@ -19,7 +19,7 @@ Embedis embedis(Serial);
   }
   void loop(){
     CLIENT::NTP::loop();
-    CLIENT::MQTT::loop();
+    // CLIENT::MQTT::loop();
     SERVER::mDNS::loop();
     SERVER::TELNET::loop();
     embedis.process();
