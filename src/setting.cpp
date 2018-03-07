@@ -59,9 +59,4 @@ namespace SETTING{
       }
     }
   }
-  namespace TELNET{
-    String PASSWORD(){
-      return getSettingValue(EMBEDIS::TELNET_PASSWORD, "iothub");
-    }
-  }
 }

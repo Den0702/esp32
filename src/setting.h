@@ -13,7 +13,6 @@ namespace SETTING{
     const String WIFI_AP_PASSWORD = F("WIFI_AP_PASSWORD");
     const String WIFI_STA_SSID = F("WIFI_STA_SSID");
     const String WIFI_STA_PASSWORD = F("WIFI_STA_PASSWORD");
-    const String TELNET_PASSWORD = F("TELNET_PASSWORD");
     const String LOG_LEVEL = F("LOG_LEVEL");
   }
   namespace DEVICE{
@@ -32,9 +31,6 @@ namespace SETTING{
       String PASSWORD();
       String HOSTNAME();
     }
-  }
-  namespace TELNET{
-    String PASSWORD();
   }
 }
 #endif

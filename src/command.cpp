@@ -26,7 +26,6 @@ void setup_command(){
     LOGGER::LOG("GATEWAY:     " + WiFi.gatewayIP().toString());
 
     LOGGER::LOG("TELNET");
-    LOGGER::LOG("PASSWORD:    " + SETTING::TELNET::PASSWORD());
 
     LOGGER::LOG("LOG");
     LOGGER::LOG("LEVEL:       " + SETTING::LOG::LEVEL());
