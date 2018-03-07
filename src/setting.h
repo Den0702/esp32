@@ -15,7 +15,6 @@ namespace SETTING{
     const String WIFI_STA_PASSWORD = F("WIFI_STA_PASSWORD");
     const String TELNET_PASSWORD = F("TELNET_PASSWORD");
     const String LOG_LEVEL = F("LOG_LEVEL");
-    const String NTP_TIMEZONE = F("NTP_TIMEZONE");
   }
   namespace DEVICE{
     const uint MODEL = 0;
@@ -36,11 +35,6 @@ namespace SETTING{
   }
   namespace TELNET{
     String PASSWORD();
-  }
-  namespace NTP{
-    const bool DEFAULT_TIMEZONE =0;
-    const uint UPDATE_INTERVAL = 60000;
-
   }
 }
 #endif

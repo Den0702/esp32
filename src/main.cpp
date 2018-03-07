@@ -5,7 +5,6 @@
 #include "device/wifi.h"
 #include "server/telnet.h"
 Embedis embedis(Serial);
-#include "client/ntp.h"
 #include "log.h"
 #include "command.h"
   void setup() {
@@ -13,10 +12,8 @@ Embedis embedis(Serial);
     DEVICE::EePROM::setup();
     setup_command();
     DEVICE::WIFI::setup();
-    CLIENT::NTP::setup();
   }
   void loop(){
-    CLIENT::NTP::loop();
     SERVER::TELNET::loop();
     embedis.process();
   }

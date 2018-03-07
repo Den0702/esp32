@@ -1,6 +1,5 @@
 #include "log.h"
 #include "Embedis.h"
-#include "./client/ntp.h"
 #include "setting.h"
 namespace LOGGER{
   void LOG(const String& message) {
@@ -10,9 +9,9 @@ namespace LOGGER{
         inSetup = false;
         return;
       }
-      Serial.println(CLIENT::NTP::getTime() + ": " + message);
+      Serial.println(message);
     }
-    Embedis::publish("LOG", CLIENT::NTP::getTime() + ": " + message);
+    Embedis::publish("LOG", message);
   }
 
   /**
