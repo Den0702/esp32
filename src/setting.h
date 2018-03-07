@@ -20,17 +20,5 @@ namespace SETTING{
     const uint FIRMWARE_VERSION = 0;
     String ID();
   }
-  namespace WIFI {
-    namespace AP{
-      String SSID();
-      String PASSWORD();
-      String HOSTNAME();
-    }
-    namespace STA{
-      String SSID();
-      String PASSWORD();
-      String HOSTNAME();
-    }
-  }
 }
 #endif

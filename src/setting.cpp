@@ -34,29 +34,4 @@ namespace SETTING{
       return str.toInt();
     }
   }
-  namespace WIFI {
-    namespace AP{
-      String SSID(){
-        return "IOTHUB" + getSettingValue(EMBEDIS::WIFI_AP_SSID, SETTING::DEVICE::ID());
-      }
-      String PASSWORD(){
-        return "iothub";
-        return getSettingValue(EMBEDIS::WIFI_AP_PASSWORD, "iothub");
-      }
-      String HOSTNAME(){
-        return "IOTHUB" + SETTING::DEVICE::ID();
-      }
-    }
-    namespace STA{
-      String SSID(){
-        return getSettingValue(EMBEDIS::WIFI_STA_SSID, "iothub");
-      }
-      String PASSWORD(){
-        return getSettingValue(EMBEDIS::WIFI_STA_PASSWORD, "iothub");
-      }
-      String HOSTNAME(){
-        return SETTING::DEVICE::ID();
-      }
-    }
-  }
 }
